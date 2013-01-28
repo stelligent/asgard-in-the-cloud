@@ -1,0 +1,13 @@
+{
+ "asgard_config": {
+	"username": "insertusernamehere",
+	"password": "insertpasswordhere"
+
+},
+
+  "run_list": [ "recipe[tomcat6]",
+                "recipe[sudoers]",
+                "recipe[asgard]"
+               ]
+}
+
