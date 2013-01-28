@@ -1,0 +1,169 @@
+{
+    "Description" : "Asgard in the Cloud, by Stelligent. Deploys an Asgard application to an EC2 instance.",
+
+    "Resources": {
+        "IPAddress": {
+            "Type": "AWS::EC2::EIP"
+        },
+        "Ec2Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "SecurityGroups": [
+                    {
+                        "Ref": "TomcatSecurityGroup"
+                    },
+                    {
+                        "Ref": "SSHSecurityGroup"
+                    }
+                ],
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "RegionMap",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        "AMI"
+                    ]
+                },
+                "InstanceType" : "m1.small",
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -v\n",
+                                "date > /home/ec2-user/starttime\n",
+                                "yum -y update\n",
+                                "yum -y install git libxml2-devel gcc gcc-c++ automake autoconf make curl dmidecode\n",
+                                "wget https://s3.amazonaws.com/stelligent-asgard/ruby-1.9.3p0-2.amzn1.x86_64.rpm -O /home/ec2-user/ruby-1.9.3p0-2.amzn1.x86_64.rpm\n",
+                                "rpm -Uvhf /home/ec2-user/ruby-1.9.3p0-2.amzn1.x86_64.rpm\n",
+                                "gem install chef --no-ri --no-rdoc\n",
+                                "git clone https://github.com/jsywulak/asgard-in-the-cloud.git /home/ec2-user/asgard-in-the-cloud\n",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "cat /home/ec2-user/asgard-in-the-cloud/solo.source | sed 's/insertpasswordhere/",
+                                            {
+                                                "Ref": "Password"
+                                            },
+                                            "/g' | sed 's/insertusernamehere/",
+                                            {
+                                                "Ref": "Username"
+                                            },
+                                            "/g' > /home/ec2-user/asgard-in-the-cloud/solo.js\n"
+                                        ]
+                                    ]
+                                },
+                                "chef-solo -c /home/ec2-user/asgard-in-the-cloud/solo.rb -j /home/ec2-user/asgard-in-the-cloud/solo.js -l debug\n",
+                                "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
+                                   "\"Reason\" : \"The application myapp is ready\",",
+                                   "\"UniqueId\" : \"myapp\",",
+                                   "\"Data\" : \"Done\"}' ",
+                                   "\"", {"Ref" : "WaitForInstanceWaitHandle"},"\"\n",
+                                "date > /home/ec2-user/stoptime\n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+
+        "TomcatSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Allow access to the server via Tomcat",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "8080",
+                        "ToPort": "8080",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            }
+        },
+        "SSHSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Allow access to the server via SSH",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            }
+        },
+        "WaitForInstanceWaitHandle" : {
+          "Type" : "AWS::CloudFormation::WaitConditionHandle",
+          "Properties" : {
+          }
+        },
+        "WaitForInstance" : {
+          "Type" : "AWS::CloudFormation::WaitCondition",
+          "DependsOn" : "Ec2Instance",
+          "Properties" : {
+            "Handle" : {"Ref" : "WaitForInstanceWaitHandle"},
+            "Timeout" : "600"
+          }
+        }
+      },
+    "Mappings": {
+        "RegionMap": {
+            "us-east-1": {
+                "AMI": "ami-1624987f"
+            },
+            "us-west-1": {
+                "AMI": "ami-1bf9de5e"
+            },
+            "us-west-2": {
+                "AMI": "ami-2a31bf1a"
+            },
+            "eu-west-1": {
+                "AMI": "ami-c37474b7"
+            },
+            "ap-southeast-1": {
+                "AMI": "ami-a6a7e7f4"
+            },
+            "ap-northeast-1": {
+                "AMI": "ami-4e6cd34f"
+            },
+            "sa-east-1": {
+                "AMI": "ami-1e08d103"
+            }
+        }
+    },
+    "Parameters": {
+        "KeyName": {
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access into the server",
+            "Type": "String"
+        },
+        "Password": {
+            "Description": "Password to access your Asgard instance",
+            "Type": "String",
+            "NoEcho": "TRUE"
+        },
+        "Username": {
+            "Description": "Username to access your Asgard instance",
+            "Type": "String"
+        }
+    },
+    "Outputs": {
+        "Address": { 
+            "Value": {
+                "Fn::GetAtt": ["Ec2Instance","PublicDnsName"]
+            }
+        },  
+        "AsgardURL": {
+            "Value": {
+                "Fn::Join": ["",["http://",{"Fn::GetAtt": ["Ec2Instance","PublicDnsName"]},":8080/asgard"]]
+            }
+        }
+    }
+}
