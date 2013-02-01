@@ -1,4 +1,4 @@
-G{
+{
     "Description" : "Asgard in the Cloud, by Stelligent. Deploys an Asgard application to an EC2 instance.",
 
     "Resources": {
