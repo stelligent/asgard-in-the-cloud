@@ -60,8 +60,8 @@
                                 },
                                 "chef-solo -c /home/ec2-user/asgard-in-the-cloud/solo.rb -j /home/ec2-user/asgard-in-the-cloud/solo.js -l debug\n",
                                 "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
-                                   "\"Reason\" : \"The application myapp is ready\",",
-                                   "\"UniqueId\" : \"myapp\",",
+                                   "\"Reason\" : \"The application is ready\",",
+                                   "\"UniqueId\" : \"asgard\",",
                                    "\"Data\" : \"Done\"}' ",
                                    "\"", {"Ref" : "WaitForInstanceWaitHandle"},"\"\n",
                                 "date > /home/ec2-user/stoptime\n"
