@@ -11,7 +11,7 @@ directory "/usr/share/tomcat6/webapps" do
 end
 
 remote_file "/usr/share/tomcat6/webapps/asgard.war" do
-  source "https://s3.amazonaws.com/stelligent-asgard/asgard.war"
+  source "https://s3.amazonaws.com/stelligent-blog/asgard/asgard.war"
   mode "0644"
 end
 
