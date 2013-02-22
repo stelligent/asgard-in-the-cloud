@@ -147,7 +147,8 @@
         "Password": {
             "Description": "Password to access your Asgard instance",
             "Type": "String",
-            "NoEcho": "TRUE"
+            "NoEcho": "TRUE",
+            "AllowedPattern": "[^/]*"
         },
         "Username": {
             "Description": "Username to access your Asgard instance",
