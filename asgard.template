@@ -117,25 +117,25 @@
     "Mappings": {
         "RegionMap": {
             "us-east-1": {
-                "AMI": "ami-1624987f"
+                "AMI": "ami-05355a6c"
             },
             "us-west-1": {
-                "AMI": "ami-1bf9de5e"
+                "AMI": "ami-3ffed17a"
             },
             "us-west-2": {
-                "AMI": "ami-2a31bf1a"
+                "AMI": "ami-0358ce33"
             },
             "eu-west-1": {
-                "AMI": "ami-c37474b7"
+                "AMI": "ami-c7c0d6b3"
             },
             "ap-southeast-1": {
-                "AMI": "ami-a6a7e7f4"
+                "AMI": "ami-fade91a8"
             },
             "ap-northeast-1": {
-                "AMI": "ami-4e6cd34f"
+                "AMI": "ami-39b23d38"
             },
             "sa-east-1": {
-                "AMI": "ami-1e08d103"
+                "AMI": "ami-5253894f"
             }
         }
     },
