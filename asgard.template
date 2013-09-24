@@ -42,6 +42,7 @@
                                 "rpm -Uvhf /home/ec2-user/ruby-1.9.3p0-2.amzn1.x86_64.rpm\n",
                                 "gem install chef --no-ri --no-rdoc\n",
                                 "git clone git@github.com:ktgit/asgard-in-the-cloud.git /home/ec2-user/asgard-in-the-cloud\n",
+                                "git clone https://github.com/fnichol/chef-user.git /home/ec2-user/asgard-in-the-cloud/chef/cookbooks/user\n",
                                 {
                                     "Fn::Join": [
                                         "",
