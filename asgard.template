@@ -1,5 +1,5 @@
 {
-    "Description" : "Asgard in the Cloud, by Stelligent. Deploys an Asgard application to an EC2 instance.",
+    "Description" : "A Knowledge Tree Asgard Server. This configuration deploys an Asgard application to an EC2 instance.",
 
     "Resources": {
         "IPAddress": {
@@ -41,7 +41,7 @@
                                 "wget https://s3.amazonaws.com/stelligent-blog/asgard/ruby-1.9.3p0-2.amzn1.x86_64.rpm -O /home/ec2-user/ruby-1.9.3p0-2.amzn1.x86_64.rpm\n",
                                 "rpm -Uvhf /home/ec2-user/ruby-1.9.3p0-2.amzn1.x86_64.rpm\n",
                                 "gem install chef --no-ri --no-rdoc\n",
-                                "git clone https://github.com/stelligent/asgard-in-the-cloud.git /home/ec2-user/asgard-in-the-cloud\n",
+                                "git clone git@github.com:ktgit/asgard-in-the-cloud.git /home/ec2-user/asgard-in-the-cloud\n",
                                 {
                                     "Fn::Join": [
                                         "",
