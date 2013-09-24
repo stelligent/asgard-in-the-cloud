@@ -54,11 +54,11 @@
                                             {
                                                 "Ref": "Username"
                                             },
-                                            "/g' > /home/ec2-user/asgard-in-the-cloud/solo.js\n"
+                                            "/g' > /home/ec2-user/asgard-in-the-cloud/solo.json\n"
                                         ]
                                     ]
                                 },
-                                "chef-solo -c /home/ec2-user/asgard-in-the-cloud/solo.rb -j /home/ec2-user/asgard-in-the-cloud/solo.js -l debug\n",
+                                "chef-solo -c /home/ec2-user/asgard-in-the-cloud/solo.rb -j /home/ec2-user/asgard-in-the-cloud/solo.json -l debug\n",
                                 "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
                                    "\"Reason\" : \"The application is ready\",",
                                    "\"UniqueId\" : \"asgard\",",
