@@ -1,0 +1,8 @@
+{
+  "id"        : "mark",
+  "comment"   : "Mark Merrill",
+  "groups"    : ["wheel"],
+  "ssh_keys"  : [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCIJ0VE4XU91vrPrDIonKO36/YYYa2YBLnvrp+30zQrlTpp6yegHDMy8fkKVD7yIAkOBVywXb8/dacjZOs3Z9qLGxydwRgaoaZzxukPazdAZsouVhrgROs6jzf/uIspDpdQ1uIJsh0RzJ4SwPvT0ve/51+btPE30N9vzM3eJ+ooOn6yJqgRbjLYAm6sVib5/R83FqqYCTiYqS6nzjutgKZMw9eJs7cnNuMtajv5gHj6pbaH/oh20oVYj1DqV55qfBhFvBa3gFfllAXGnQIwy6dko2PxjtKEE2LBgVxsP1d4JkS2SJp3BbH4zgbKSJVATz1CxZ8dDxXJHhYKJAIcPdDD"
+                ]
+}
+
