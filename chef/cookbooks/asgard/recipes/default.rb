@@ -41,6 +41,7 @@ bash "enable security" do
   user "root"
   cwd "/usr/share/tomcat6/webapps/asgard/WEB-INF"
   code <<-EOH
+    cp web.xml web.xml.orig
     linecount=`wc -l web.xml | awk '{ print $1}'`
     i=`expr $linecount - 1`
     head -$i web.xml > /tmp/head

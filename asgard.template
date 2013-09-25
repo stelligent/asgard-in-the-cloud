@@ -1,5 +1,5 @@
 {
-    "Description" : "Asgard in the Cloud, by Stelligent. Deploys an Asgard application to an EC2 instance.",
+    "Description" : "A Knowledge Tree Asgard Server. This configuration deploys an Asgard application to an EC2 instance.",
 
     "Resources": {
         "IPAddress": {
@@ -41,7 +41,8 @@
                                 "wget https://s3.amazonaws.com/stelligent-blog/asgard/ruby-1.9.3p0-2.amzn1.x86_64.rpm -O /home/ec2-user/ruby-1.9.3p0-2.amzn1.x86_64.rpm\n",
                                 "rpm -Uvhf /home/ec2-user/ruby-1.9.3p0-2.amzn1.x86_64.rpm\n",
                                 "gem install chef --no-ri --no-rdoc\n",
-                                "git clone https://github.com/stelligent/asgard-in-the-cloud.git /home/ec2-user/asgard-in-the-cloud\n",
+                                "git clone https://github.com/ktgit/asgard-in-the-cloud.git /home/ec2-user/asgard-in-the-cloud\n",
+                                "git clone https://github.com/fnichol/chef-user.git /home/ec2-user/asgard-in-the-cloud/chef/cookbooks/user\n",
                                 {
                                     "Fn::Join": [
                                         "",
@@ -54,11 +55,11 @@
                                             {
                                                 "Ref": "Username"
                                             },
-                                            "/g' > /home/ec2-user/asgard-in-the-cloud/solo.js\n"
+                                            "/g' > /home/ec2-user/asgard-in-the-cloud/solo.json\n"
                                         ]
                                     ]
                                 },
-                                "chef-solo -c /home/ec2-user/asgard-in-the-cloud/solo.rb -j /home/ec2-user/asgard-in-the-cloud/solo.js -l debug\n",
+                                "chef-solo -c /home/ec2-user/asgard-in-the-cloud/solo.rb -j /home/ec2-user/asgard-in-the-cloud/solo.json -l debug\n",
                                 "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
                                    "\"Reason\" : \"The application is ready\",",
                                    "\"UniqueId\" : \"asgard\",",
@@ -117,25 +118,25 @@
     "Mappings": {
         "RegionMap": {
             "us-east-1": {
-                "AMI": "ami-1624987f"
+                "AMI": "ami-05355a6c"
             },
             "us-west-1": {
-                "AMI": "ami-1bf9de5e"
+                "AMI": "ami-3ffed17a"
             },
             "us-west-2": {
-                "AMI": "ami-2a31bf1a"
+                "AMI": "ami-0358ce33"
             },
             "eu-west-1": {
-                "AMI": "ami-c37474b7"
+                "AMI": "ami-c7c0d6b3"
             },
             "ap-southeast-1": {
-                "AMI": "ami-a6a7e7f4"
+                "AMI": "ami-fade91a8"
             },
             "ap-northeast-1": {
-                "AMI": "ami-4e6cd34f"
+                "AMI": "ami-39b23d38"
             },
             "sa-east-1": {
-                "AMI": "ami-1e08d103"
+                "AMI": "ami-5253894f"
             }
         }
     },
