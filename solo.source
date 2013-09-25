@@ -5,7 +5,20 @@
 
 },
 
+  "users": [ "frans",
+             "geoff",
+             "james",
+             "jarrett",
+             "mark",
+             "megan",
+             "paul",
+             "peter",
+             "rchekaluk"
+           ],
+
   "run_list": [ "recipe[tomcat6]",
+                "recipe[user]",
+                "recipe[user::data_bag]",
                 "recipe[sudoers]",
                 "recipe[asgard]"
                ]
