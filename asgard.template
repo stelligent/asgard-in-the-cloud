@@ -144,15 +144,15 @@
             "Description": "Name of an existing EC2 KeyPair to enable SSH access into the server",
             "Type": "String"
         },
+        "Username": {
+            "Description": "Username to access your Asgard instance",
+            "Type": "String"
+        },
         "Password": {
             "Description": "Password to access your Asgard instance",
             "Type": "String",
             "NoEcho": "TRUE",
             "AllowedPattern": "[^/]*"
-        },
-        "Username": {
-            "Description": "Username to access your Asgard instance",
-            "Type": "String"
         }
     },
     "Outputs": {
