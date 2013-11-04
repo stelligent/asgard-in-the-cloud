@@ -37,9 +37,16 @@
                                 "#!/bin/bash -v\n",
                                 "date > /home/ec2-user/starttime\n",
                                 "yum -y update\n",
-                                "yum -y install git libxml2-devel gcc gcc-c++ automake autoconf make curl dmidecode\n",
-                                "wget https://s3.amazonaws.com/stelligent-blog/asgard/ruby-1.9.3p0-2.amzn1.x86_64.rpm -O /home/ec2-user/ruby-1.9.3p0-2.amzn1.x86_64.rpm\n",
-                                "rpm -Uvhf /home/ec2-user/ruby-1.9.3p0-2.amzn1.x86_64.rpm\n",
+                                "yum -y install git libxml2-devel gcc gcc-c++ automake autoconf make curl dmidecode ruby19\n",
+                                "# Remove Ruby 1.8.7\n",
+                                "yum erase -y ruby rubygems\n",
+
+                                "# Install Ruby 1.9.3\n",
+                                "yum -y install ruby19-devel\n",
+
+                                "# Move Ruby 1.9.3 to Default Ruby\n",
+                                "ln -s /usr/bin/ruby1.9 /usr/bin/ruby\n",
+                                "ln -s /usr/bin/gem1.9 /usr/bin/gem\n",
                                 "gem install chef --no-ri --no-rdoc\n",
                                 "git clone https://github.com/stelligent/asgard-in-the-cloud.git /home/ec2-user/asgard-in-the-cloud\n",
                                 {
@@ -58,7 +65,7 @@
                                         ]
                                     ]
                                 },
-                                "chef-solo -c /home/ec2-user/asgard-in-the-cloud/solo.rb -j /home/ec2-user/asgard-in-the-cloud/solo.js -l debug\n",
+                                "/usr/local/bin/chef-solo -c /home/ec2-user/asgard-in-the-cloud/solo.rb -j /home/ec2-user/asgard-in-the-cloud/solo.js -l debug\n",
                                 "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
                                    "\"Reason\" : \"The application is ready\",",
                                    "\"UniqueId\" : \"asgard\",",
